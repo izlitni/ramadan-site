@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Kareem? More like Ramadan Cravings.</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --danger: #ff4d4d;
+            --warning: #ffae00;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #eeeeee;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 { color: var(--gold); font-size: 3.5rem; letter-spacing: 2px; margin-bottom: 5px; }
+        .subtitle { font-style: italic; color: #888; margin-bottom: 50px; font-size: 1.2rem; }
+
+        /* Grid Layout */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            border-color: var(--gold);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .caption { padding: 20px; font-weight: 500; font-size: 1rem; }
+
+        /* Special Troll Styles */
+        .imposter { border: 3px solid var(--danger) !important; }
+        .imposter-tag { background: var(--danger); color: white; padding: 8px; font-weight: 900; position: absolute; top: 0; width: 100%; z-index: 2; }
+
+        .scam { border: 3px solid var(--warning) !important; }
+        .scam-tag { background: var(--warning); color: black; padding: 8px; font-weight: 900; position: absolute; top: 0; width: 100%; z-index: 2; }
+
+        /* Lightbox Logic */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+            animation: zoom 0.3s ease;
+        }
+
+        @keyframes zoom { from {transform: scale(0.8);} to {transform: scale(1);} }
+
+        .water-drop { font-size: 3rem; margin-top: 60px; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+    <h1>Ramadan Menu </h1>
+    <p class="subtitle">Warning: Looking at these images may cause extreme thirst.</p>
+
+    <div class="gallery">
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://www.aljawharamag.com/aljawhara/uploads/2019/07/510201682207.jpg" alt="Tasty Shawarma">
+            <div class="caption">Warm, garlic-dripping Shawarma.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://www.seriouseats.com/thmb/VAuEFUAePPa4QXEP3dhBHA4RvJA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250904-SEA-WhiteChocolateCheesecake-LorenaMasso-HERO-206c88529afb4abbb2ca8f114b1d0f2b.jpg" alt="Cheesecake">
+            <div class="caption">Velvety White Chocolate Cheesecake.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://www.fryingpanadventures.com/wp-content/uploads/2020/10/image-85.jpeg" alt="Syrup Dessert">
+            <div class="caption">Crunchy, honey-soaked bites.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://i0.wp.com/nutrient-matters.com/wp-content/uploads/2025/03/IMG_5274.jpg?resize=480%2C270&ssl=1" alt="Delicious Main">
+            <div class="caption">Look at that seasoning...</div>
+        </div>
+
+        <div class="card imposter" onclick="openLightbox(this)">
+            <div class="imposter-tag"> IMPOSTER DETECTED </div>
+            <img src="https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/105837/lablabi.jpg" alt="Lablabi">
+            <div class="caption">Lablabi: Your worst nightmare.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://www.lazzaris.com/wp-content/uploads/sites/2/2025/07/crepes-immagine-1-1024x683.jpg" alt="Crepes">
+            <div class="caption">Buttery, golden Crepes.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://majasrecipes.com/wp-content/uploads/2024/07/Quick-and-Easy-Crepe-Recipe-in-a-blender.jpg" alt="Crepes Close">
+            <div class="caption">The stuff of dreams.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/db/05/bd/my-special-order-pizza.jpg?w=500&h=-1&s=1" alt="Pizza">
+            <div class="caption">The ultimate cheese pull.</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(this)">
+            <img src="https://www.foodandwine.com/thmb/IDZmn7XzfZ4Xh6uwR--4S6PvOk8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Pizza-Hut-Extending-Hours-FT-BLOG1023-0e1769797b5343bc9fefef3a0d1bdd88.jpg" alt="Pizza 2">
+            <div class="caption">Stuffed crust, anyone?</div>
+        </div>
+
+        <div class="card scam" onclick="openLightbox(this)">
+            <div class="scam-tag"> FAKE PIZZA SCAMPI - SCAM </div>
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDDqj1dsrQHQgsPFrOegfwRKn2wxk7NTO4KzYRC2PXSScJMcMbw69YpvsGIR0I0pNFdmzN832BRPqON0lnGh6GZxJV6L7TRAQlCQY-lfeWGgdm05NdFVxBnlMi2wfQGVQZvjwdDbg_yKc/s1600/Shrimp-Pesto-Pizza-with-Sun-Dried-Tomatoes+2.JPG" alt="Scam Pizza">
+            <div class="caption">Don't be fooled by the shrimp.</div>
+        </div>
+    </div>
+
+    <div class="water-drop"></div>
+    <p style="color: #444;">Are you thirsty yet?</p>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="">
+    </div>
+
+    <script>
+        function openLightbox(card) {
+            const img = card.querySelector('img').src;
+            document.getElementById('lightbox-img').src = img;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
