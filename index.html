@@ -3,235 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramadan Iftar Inspo </title>
+    <title>Iftar Inspo | Ramadan 2026</title>
     <style>
-        /* Pinterest-style clean background */
+        :root {
+            --red: #e60023;
+            --hover-gray: #efefef;
+            --text-main: #111;
+            --text-sub: #5f5f5f;
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+
         body {
-            background-color: #e9e9e9;
-            color: #111;
+            background-color: #ffffff;
+            color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            text-align: center;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 5px; font-weight: 700; }
-        .subtitle { color: #555; margin-bottom: 30px; font-size: 1.1rem; }
+        /* --- STICKY NAV --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 80px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
 
-        /* Masonry Layout */
-        .masonry {
-            column-count: 4;
-            column-gap: 16px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .logo { color: var(--red); font-size: 32px; font-weight: bold; margin-right: 15px; cursor: pointer; }
+        
+        .search-container {
+            flex-grow: 1;
+            background: #e1e1e1;
+            border-radius: 24px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            color: var(--text-sub);
+            font-size: 16px;
+        }
+
+        .nav-icons { display: flex; gap: 20px; padding-left: 20px; font-weight: 600; cursor: pointer; }
+
+        /* --- CATEGORY BAR --- */
+        .categories {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
             padding: 10px;
         }
+        .cat-chip {
+            padding: 10px 18px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .cat-chip:hover { background: var(--text-main); color: white; }
+        .active-cat { background: var(--text-main); color: white; }
 
-        /* Responsive Columns */
+        /* --- MASONRY GRID --- */
+        .main-container { padding: 20px 40px; }
+        
+        .masonry {
+            column-count: 5;
+            column-gap: 16px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1400px) { .masonry { column-count: 4; } }
         @media (max-width: 1000px) { .masonry { column-count: 3; } }
         @media (max-width: 700px) { .masonry { column-count: 2; } }
-        @media (max-width: 450px) { .masonry { column-count: 1; } }
 
-        /* The "Pin" Card */
-        .pin {
+        .pin-wrapper {
             break-inside: avoid;
             margin-bottom: 16px;
             position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #fff;
-            cursor: zoom-in;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Variable height images for the masonry effect */
-        .pin img {
+        .pin {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f0f0f0;
+            cursor: zoom-in;
+            position: relative;
+        }
+
+        .pin img, .pin video {
             width: 100%;
             display: block;
             border-radius: 16px;
-            transition: transform 0.3s ease;
         }
 
-        /* Pinterest Hover Overlay */
-        .overlay {
+        .pin:hover { filter: brightness(0.9); }
+        .pin:hover img { transform: scale(1.03); }
+
+        /* --- BUTTON OVERLAYS --- */
+        .pin-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0;
-            transition: opacity 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 15px;
-            border-radius: 16px;
-            text-align: left;
+            background: rgba(0,0,0,0.15);
+            z-index: 5;
         }
-
-        .pin:hover .overlay { opacity: 1; }
+        .pin-wrapper:hover .pin-overlay { opacity: 1; }
 
         .save-btn {
             align-self: flex-end;
-            background: #e60023; /* Pinterest Red */
+            background: var(--red);
             color: white;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 24px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .caption {
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-        }
-
-        /* Persistent Badges for the Trolls */
-        .badge {
+        /* --- TROLL BADGES --- */
+        .status-tag {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 900;
-            font-size: 0.9rem;
-            z-index: 2;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            top: 12px; left: 12px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 10;
         }
+        .tag-imposter { background: #ff4d4d; color: white; border: 1.5px solid white; }
+        .tag-scam { background: #ffae00; color: black; border: 1.5px solid white; }
 
-        .imposter-badge { background: #ff4d4d; color: white; border: 2px solid white; }
-        .scam-badge { background: #ffae00; color: black; border: 2px solid white; }
-
-        /* Lightbox (Image Viewer) */
+        /* --- LIGHTBOX --- */
         #lightbox {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
+            background: rgba(255,255,255,0.98);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
             cursor: zoom-out;
-            backdrop-filter: blur(5px);
         }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: pop 0.2s ease-out;
+        #lightbox-content {
+            max-width: 500px;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
+        #lightbox img, #lightbox video { width: 100%; height: auto; }
+        .lb-footer { padding: 25px; text-align: left; }
+        .lb-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .lb-desc { color: #555; line-height: 1.5; }
 
-        @keyframes pop { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
     </style>
 </head>
 <body>
 
-    <h1>Ramadan Iftar Inspo </h1>
-    <p class="subtitle">10 ideas to break your fast today. Which one are you craving?</p>
-
-    <div class="masonry">
-        
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://www.aljawharamag.com/aljawhara/uploads/2019/07/510201682207.jpg" alt="Shawarma">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Juicy Arabic Shawarma</div>
-            </div>
+    <nav>
+        <div class="logo">P</div>
+        <div class="search-container"> Search for "Cold Water" or "Juicy Steak"...</div>
+        <div class="nav-icons">
+            <span>Home</span>
+            <span>Explore</span>
+            <span>Create</span>
         </div>
+    </nav>
 
-        <div class="pin" onclick="openLightbox(this)">
-            <div class="badge imposter-badge"> IMPOSTER DETECTED</div>
-            <img src="https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/105837/lablabi.jpg" alt="Lablabi">
-            <div class="overlay">
-                <div class="save-btn">Ignore</div>
-                <div class="caption">Lablabi: Do not trust this bowl.</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://www.lazzaris.com/wp-content/uploads/sites/2/2025/07/crepes-immagine-1-1024x683.jpg" alt="Crepes">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Golden Buttery Crepes</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <div class="badge scam-badge"> NOT PIZZA SCAMPI - SCAM</div>
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDDqj1dsrQHQgsPFrOegfwRKn2wxk7NTO4KzYRC2PXSScJMcMbw69YpvsGIR0I0pNFdmzN832BRPqON0lnGh6GZxJV6L7TRAQlCQY-lfeWGgdm05NdFVxBnlMi2wfQGVQZvjwdDbg_yKc/s1600/Shrimp-Pesto-Pizza-with-Sun-Dried-Tomatoes+2.JPG" alt="Fake Pizza Scampi">
-            <div class="overlay">
-                <div class="save-btn">Report</div>
-                <div class="caption">Fake news on a crust.</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://www.seriouseats.com/thmb/VAuEFUAePPa4QXEP3dhBHA4RvJA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250904-SEA-WhiteChocolateCheesecake-LorenaMasso-HERO-206c88529afb4abbb2ca8f114b1d0f2b.jpg" alt="Cheesecake">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">White Chocolate Cheesecake</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://www.fryingpanadventures.com/wp-content/uploads/2020/10/image-85.jpeg" alt="Dessert">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Honey & Syrup Cravings</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/db/05/bd/my-special-order-pizza.jpg?w=500&h=-1&s=1" alt="Pizza">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Ultimate Cheese Pull</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://i0.wp.com/nutrient-matters.com/wp-content/uploads/2025/03/IMG_5274.jpg?resize=480%2C270&ssl=1" alt="Main">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Perfectly Seasoned</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://majasrecipes.com/wp-content/uploads/2024/07/Quick-and-Easy-Crepe-Recipe-in-a-blender.jpg" alt="Crepes 2">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Easy Blender Crepes</div>
-            </div>
-        </div>
-
-        <div class="pin" onclick="openLightbox(this)">
-            <img src="https://www.foodandwine.com/thmb/IDZmn7XzfZ4Xh6uwR--4S6PvOk8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Pizza-Hut-Extending-Hours-FT-BLOG1023-0e1769797b5343bc9fefef3a0d1bdd88.jpg" alt="Pizza 2">
-            <div class="overlay">
-                <div class="save-btn">Save</div>
-                <div class="caption">Stuffed Crust Magic</div>
-            </div>
-        </div>
-
+    <div class="categories">
+        <div class="cat-chip active-cat">All Pins</div>
+        <div class="cat-chip">Juicy Burgers</div>
+        <div class="cat-chip">Pizza Scampi</div>
+        <div class="cat-chip">Dessert Porn</div>
+        <div class="cat-chip">Disappointments (Lablabi)</div>
     </div>
 
-    <div id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="">
+    <div class="main-container">
+        <div class="masonry" id="pin-grid">
+            </div>
+    </div>
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <div id="lightbox-content" onclick="event.stopPropagation()">
+            <div id="lb-media"></div>
+            <div class="lb-footer">
+                <div class="lb-title" id="lb-title"></div>
+                <div class="lb-desc" id="lb-desc">Shared by <strong>Ramadan Foodie</strong></div>
+                <div class="save-btn" style="display:inline-block; margin-top:15px; cursor:pointer;">Save to Board</div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function openLightbox(element) {
-            // Find the image inside the clicked pin
-            const imgSrc = element.querySelector('img').src;
-            document.getElementById('lightbox-img').src = imgSrc;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
+        const data = [
+            { url: "https://www.aljawharamag.com/aljawhara/uploads/2019/07/510201682207.jpg", title: "Midnight Shawarma", desc: "Extra garlic sauce dripping from every bite." },
+            { url: "https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/105837/lablabi.jpg", title: "Bowl of Sadness", desc: "This is a literal imposter. Don't let the chickpeas fool you.", badge: "imposter", label: "Imposter Detected" },
+            { url: "https://i.pinimg.com/736x/a8/a2/b8/a8a2b801334b828a12ca0b034669b80a.jpg", title: "The Cheese Pull", desc: "4 different types of mozzarella. Can you smell it?" },
+            { url: "https://i.pinimg.com/736x/70/be/75/70be75c426bd4865496feb0c548ebcc7.jpg", title: "The Scampi Scam", desc: "WARNING: This is not real Pizza Scampi. It's a trap.", badge: "scam", label: "Pizza Scam" },
+            { url: "https://v1.pinimg.com/videos/mc/720p/c2/ae/fa/c2aefa662e47e6626dad0601846e5d31.mp4", title: "Sizzling Steak", desc: "The sound of hunger.", type: "video" },
+            { url: "https://www.seriouseats.com/thmb/VAuEFUAePPa4QXEP3dhBHA4RvJA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250904-SEA-WhiteChocolateCheesecake-LorenaMasso-HERO-206c88529afb4abbb2ca8f114b1d0f2b.jpg", title: "White Chocolate Cloud", desc: "Melts on your tongue instantly." },
+            { url: "https://i.pinimg.com/736x/bd/4b/2e/bd4b2e41bd4290ca0fcf69efc818ace5.jpg", title: "Spicy Ramen", desc: "The perfect amount of chili oil." },
+            { url: "https://i.pinimg.com/736x/81/25/47/812547a4783a7f48b20b6af989aa3c3d.jpg", title: "Breakfast Goals", desc: "Pancakes with warm maple syrup." },
+            { url: "https://i.pinimg.com/1200x/6d/2c/5e/6d2c5ef2e977ea62e98a5eb8eed64a2d.jpg", title: "Golden Fries", desc: "Crispy outside, fluffy inside." }
+            // ... (rest of your links would go here following this pattern)
+        ];
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+        // Let's add the rest of your links dynamically to save space
+        const otherLinks = [
+            "https://i.pinimg.com/736x/2c/ed/3d/2ced3dc9ae193322fb00afa11bfcb292.jpg",
+            "https://i.pinimg.com/736x/a4/c6/1e/a4c61eb097c06480143fa768afc72b4f.jpg",
+            "https://i.pinimg.com/1200x/76/dc/ff/76dcffa2344adb05cebc3218a5a1da7d.jpg",
+            "https://i.pinimg.com/736x/21/ae/a6/21aea6e89fcd6d66a953f418a6950996.jpg",
+            "https://i.pinimg.com/736x/62/5e/1e/625e1e3a5405e0d2380a0fef1310bf08.jpg",
+            "https://i.pinimg.com/736x/88/1a/4e/881a4e3bffbd83cb19eec24b1b3f769a.jpg",
+            "https://i.pinimg.com/1200x/77/9f/21/779f213c5a3f4f0df9f84ac3455ff9d8.jpg",
+            "https://i.pinimg.com/736x/d8/9f/d5/d89fd53131b05766477bb9026f77cbe3.jpg",
+            "https://i.pinimg.com/736x/1c/77/a3/1c77a3981fa378caeb0f212bb4e80c7d.jpg",
+            "https://i.pinimg.com/736x/5c/ab/26/5cab268a8b5a17a864c82c661bf5ff1a.jpg",
+            "https://i.pinimg.com/1200x/8d/8c/c0/8d8cc075105bafa915df3a638b586b98.jpg",
+            "https://i.pinimg.com/1200x/00/05/35/000535c14d2cd7fbe1176b98fbd470f8.jpg",
+            "https://i.pinimg.com/1200x/a0/eb/2e/a0eb2e711de24416aca3c5a2fc65ef34.jpg",
+            "https://i.pinimg.com/1200x/bc/aa/0a/bcaa0add2335a54e6ebed1f9aa1763ba.jpg",
+            "https://i.pinimg.com/736x/e3/65/97/e36597bfcbb1c2f68e53499403856025.jpg",
+            "https://i.pinimg.com/736x/38/2b/16/382b1626349c433ee2c231cf203cfa64.jpg",
+            "https://i.pinimg.com/736x/83/d2/d7/83d2d777570300afd23b4e055784de81.jpg",
+            "https://i.pinimg.com/1200x/a2/94/4b/a2944b8ec6798d6a7849ce9e00d8d631.jpg",
+            "https://i.pinimg.com/1200x/6a/a0/25/6aa0258bad6bf9dba7e85fcf653ea13f.jpg",
+            "https://i.pinimg.com/736x/e3/d4/8c/e3d48cf5c7f79cc9d0f8a720a2622be6.jpg",
+            "https://i.pinimg.com/736x/90/ba/b0/90bab0e8ad14bf3072efb03f594db6c5.jpg",
+            "https://i.pinimg.com/736x/5c/83/05/5c8305202d2ed5404b3a5d47460db74f.jpg",
+            "https://i.pinimg.com/1200x/b8/b9/bf/b8b9bf2c351bb738d769516f8dfee26b.jpg",
+            "https://i.pinimg.com/736x/a6/9d/f8/a69df870b0d063d4e81feb4a37bab57e.jpg",
+            "https://i.pinimg.com/736x/69/0b/f5/690bf5a340d63ae2194d2c67d61f1a02.jpg",
+            "https://i.pinimg.com/736x/b3/9d/72/b39d7216d548d7be743b4ce9de5ab23d.jpg",
+            "https://i.pinimg.com/1200x/7d/fc/7c/7dfc7c7c78da7c5f9b0d51f05dd97624.jpg",
+            "https://i.pinimg.com/736x/82/a7/49/82a749b43e9a39ced6c99d36d6fb10eb.jpg",
+            "https://i.pinimg.com/1200x/50/0d/db/500ddb1773f040a2b541282fb4428c05.jpg",
+            "https://i.pinimg.com/736x/c1/66/90/c16690314276a82b719c0ff9a1bbe80f.jpg",
+            "https://i.pinimg.com/1200x/29/ed/d7/29edd713421fa4e20c0eb819605b21b7.jpg",
+            "https://i.pinimg.com/736x/dc/dd/fa/dcddfa7d85a64af04b40ae428f961274.jpg",
+            "https://i.pinimg.com/736x/86/03/bd/8603bd9175ce18a8ef11167a4589518f.jpg",
+            "https://i.pinimg.com/736x/cc/91/bb/cc91bba0c38df9ac4b42bb0971fb8b65.jpg",
+            "https://i.pinimg.com/736x/d4/22/1f/d4221ff36d4a8ec8e098820f8aeeb379.jpg",
+            "https://i.pinimg.com/1200x/2b/85/32/2b85323bb0db1436699ac9d16f81dc80.jpg",
+            "https://i.pinimg.com/1200x/35/b3/d0/35b3d0854e82312aef67eb16eed9e71a.jpg",
+            "https://i.pinimg.com/1200x/17/c3/11/17c3112e8ed7dff4756825b5341b9462.jpg"
+        ];
+
+        otherLinks.forEach(link => {
+            data.push({ url: link, title: "Iftar Suggestion", desc: "Just imagine eating this right now..." });
+        });
+
+        const grid = document.getElementById('pin-grid');
+
+        data.forEach(item => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'pin-wrapper';
+            
+            const badge = item.badge ? `<div class="status-tag tag-${item.badge}">${item.label}</div>` : '';
+            const media = item.type === 'video' 
+                ? `<video src="${item.url}" muted loop autoplay></video>` 
+                : `<img src="${item.url}" loading="lazy">`;
+
+            wrapper.innerHTML = `
+                ${badge}
+                <div class="pin">
+                    ${media}
+                    <div class="pin-overlay">
+                        <div class="save-btn">${item.badge ? 'Ew' : 'Save'}</div>
+                    </div>
+                </div>
+            `;
+
+            wrapper.onclick = () => {
+                document.getElementById('lb-media').innerHTML = item.type === 'video' 
+                    ? `<video src="${item.url}" controls autoplay></video>` 
+                    : `<img src="${item.url}">`;
+                document.getElementById('lb-title').innerText = item.title;
+                document.getElementById('lb-desc').innerText = item.desc;
+                document.getElementById('lightbox').style.display = 'flex';
+            };
+
+            grid.appendChild(wrapper);
+        });
     </script>
 </body>
 </html>
